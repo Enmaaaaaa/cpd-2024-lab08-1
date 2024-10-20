@@ -4,7 +4,7 @@
 #include "histogram.h"
 #include <vector>
 
-class OpenMPCritical : public Histogram {
+class OpenMPCritical : Histogram {
  public:
   std::vector<int> calculate(const int*, const int, const int) override;
 };
