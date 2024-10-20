@@ -7,7 +7,7 @@ std::vector<int> OpenMPCritical::calculate(const int* input, const int buckets, 
 #pragma omp parallel for
   for (int idx = 0; idx < size; idx++) {
 #pragma omp critical
-    histogram[randomInput[idx] - 1]++;
+    histogram[input[idx] - 1]++;
   }
 
   return histogram;
