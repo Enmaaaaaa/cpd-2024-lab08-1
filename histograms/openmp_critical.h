@@ -2,7 +2,6 @@
 #define OPENMP_CRITICAL_H
 
 #include "histogram.h"
-#include <vector>
 
 class OpenMPCritical : Histogram {
  public:
