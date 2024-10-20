@@ -182,6 +182,15 @@ static void BM_openmp_critical(benchmark::State& state) {
   }
 }
 
+static void BM_openmp_critical2(benchmark::State& state) {
+    OpenMPCritical histogramCalculator;
+
+    for (auto _ : state) {
+        auto histograma = histogramCalculator.calculate(randomInput, MAXIMO_VALOR, NUMERO_ELEMENTOS);
+        benchmark::DoNotOptimize(histograma);
+    }
+}
+
 static void BM_openmp_ompatomic(benchmark::State& state) {
   int histograma[MAXIMO_VALOR] = {0};
 
@@ -203,6 +212,7 @@ BENCHMARK(BM_openmp_reduction)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_lock_guard)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_lock_unlock)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_critical)->UseRealTime()->Unit(benchmark::kMillisecond);
+BENCHMARK(BM_openmp_critical2)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_ompatomic)->UseRealTime()->Unit(benchmark::kMillisecond);
 
 int main(int argc, char** argv) {
