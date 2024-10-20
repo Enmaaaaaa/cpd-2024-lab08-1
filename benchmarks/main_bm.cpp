@@ -188,7 +188,6 @@ static void BM_openmp_critical2(benchmark::State& state) {
 
     for (auto _ : state) {
         auto histograma = histogramCalculator.calculate(randomInput, MAXIMO_VALOR, NUMERO_ELEMENTOS);
-        benchmark::DoNotOptimize(histograma);
     }
 }
 
