@@ -204,6 +204,15 @@ static void BM_openmp_ompatomic(benchmark::State& state) {
   }
 }
 
+static void BM_openmp_ompatomic2(benchmark::State& state) {
+    OpenMPOMPATOMIC histogramCalculatorAT;
+
+    for (auto _ : state) {
+        auto histogramaAT = histogramCalculatorAT.calculate(randomInput, MAXIMO_VALOR, NUMERO_ELEMENTOS);
+        benchmark::DoNotOptimize(histogramaAT);
+    }
+}
+
 BENCHMARK(BM_secuencial)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_secuencial2)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_estandar)->UseRealTime()->Unit(benchmark::kMillisecond);
@@ -215,6 +224,7 @@ BENCHMARK(BM_openmp_lock_unlock)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_critical)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_critical2)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_ompatomic)->UseRealTime()->Unit(benchmark::kMillisecond);
+BENCHMARK(BM_openmp_ompatomic2)->UseRealTime()->Unit(benchmark::kMillisecond);
 
 int main(int argc, char** argv) {
   inicializa();
