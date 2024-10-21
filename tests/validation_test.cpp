@@ -41,11 +41,11 @@ TEST(SequentialTest, pruebaOK) {
 
 TEST(OpenMPCriticalTest, pruebaOK) {
   OpenMPCritical histogramCalculatorC;
-  auto histograma = histogramCalculatorC.calculate(randomInput, MAXIMO_VALOR,
+  auto histogramaC = histogramCalculatorC.calculate(randomInput, MAXIMO_VALOR,
                                                   NUMERO_ELEMENTOS);
 
   int acum = 0;
-  for(auto puntuacion : histograma) acum += puntuacion;
+  for(auto puntuacion : histogramaC) acum += puntuacion;
   EXPECT_EQ(acum, NUMERO_ELEMENTOS);
 }
 
