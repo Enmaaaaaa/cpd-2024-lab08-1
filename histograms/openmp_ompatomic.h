@@ -3,7 +3,7 @@
 
 #include "histogram.h"
 
-class OpenMPOMPA : Histogram {
+class OpenMPOMPATOMIC : Histogram {
  public:
   std::vector<int> calculate(const int*, const int, const int) override;
 };
