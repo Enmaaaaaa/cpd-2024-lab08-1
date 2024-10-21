@@ -39,7 +39,7 @@ TEST(SequentialTest, pruebaOK) {
 }
 
 TEST(OpenMPCriticalTest, pruebaOK) {
-  OpenMPCritical histogramCalculatorC
+  OpenMPCritical histogramCalculatorC;
   auto histograma = histogramCalculatorC.calculate(randomInput, MAXIMO_VALOR,
                                                   NUMERO_ELEMENTOS);
 
