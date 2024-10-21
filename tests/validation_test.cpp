@@ -3,6 +3,7 @@
 #include <random>
 
 #include "sequential.h"
+#include "openmp_critical.h"
 
 static int* randomInput = nullptr;
 static const int MAXIMO_VALOR = 5;
