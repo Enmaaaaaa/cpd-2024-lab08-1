@@ -215,7 +215,7 @@ static void BM_openmp_ompatomic2(benchmark::State& state) {
 }
 
 BENCHMARK(BM_secuencial)->UseRealTime()->Unit(benchmark::kMillisecond);
-//BENCHMARK(BM_secuencial2)->UseRealTime()->Unit(benchmark::kMillisecond);
+BENCHMARK(BM_secuencial2)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_estandar)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_estandar_reduction)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_atomic)->UseRealTime()->Unit(benchmark::kMillisecond);
@@ -223,9 +223,9 @@ BENCHMARK(BM_openmp_reduction)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_lock_guard)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_lock_unlock)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_critical)->UseRealTime()->Unit(benchmark::kMillisecond);
-//BENCHMARK(BM_openmp_critical2)->UseRealTime()->Unit(benchmark::kMillisecond);
+BENCHMARK(BM_openmp_critical2)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_ompatomic)->UseRealTime()->Unit(benchmark::kMillisecond);
-//BENCHMARK(BM_openmp_ompatomic2)->UseRealTime()->Unit(benchmark::kMillisecond);
+BENCHMARK(BM_openmp_ompatomic2)->UseRealTime()->Unit(benchmark::kMillisecond);
 
 int main(int argc, char** argv) {
   inicializa();
