@@ -9,6 +9,7 @@
 #include "openmp_critical.h"
 #include "openmp_ompatomic.h"
 #include "estandar.h"
+#include "openmp_lock_unlock.h"
 
 static int* randomInput = nullptr;
 static const int MAXIMO_VALOR = 5;
@@ -181,6 +182,13 @@ static void BM_openmp_lock_unlock(benchmark::State& state) {
   }
 }
 
+static void BM_openmp_lock_unlock2(benchmark::State& state) {
+  OpenMPLockUnlock openmpLockUnlock;
+  for (auto _ : state) {
+    openmpLockUnlock.calculate(randomInput, MAXIMO_VALOR, NUMERO_ELEMENTOS);
+  }
+}
+
 static void BM_openmp_critical(benchmark::State& state) {
   int histograma[MAXIMO_VALOR] = {0};
 
@@ -232,6 +240,7 @@ BENCHMARK(BM_openmp_atomic)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_reduction)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_lock_guard)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_lock_unlock)->UseRealTime()->Unit(benchmark::kMillisecond);
+BENCHMARK(BM_openmp_lock_unlock2)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_critical)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_critical2)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_ompatomic)->UseRealTime()->Unit(benchmark::kMillisecond);
