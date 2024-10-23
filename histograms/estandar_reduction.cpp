@@ -1,29 +1,35 @@
 #include "estandar_reduction.h"
 #include <thread>
+#include <vector>
+
+void calcular_local_histograma(const int* input, std::vector<int>& local_histogram, int start, int end) {
+    for (int i = start; i < end; i++) {
+        local_histogram[input[i] - 1]++;
+    }
+}
 
 std::vector<int> EstandarReduction::calculate(const int* input, const int buckets, const int size) {
-  std::vector<int> histogram(buckets, 0);
+    std::vector<int> histogram(buckets, 0);
+    int num_threads = std::thread::hardware_concurrency();
+    std::vector<std::vector<int>> local_histograms(num_threads, std::vector<int>(buckets, 0));
 
-  const int num_hilos = std::thread::hardware_concurrency();
-  int local_histograma[num_hilos][size] = {0};
-  std::vector<std::thread> hilos(num_hilos);
-  int chunk = size / num_hilos;
+    std::vector<std::thread> threads;
+    int chunk = size / num_threads;
 
-  for(int idx = 0; idx < num_hilos; idx++) {
-    int inicio = chunk * idx;
-    int fin = (idx == num_hilos - 1) ? size : idx * chunk;
-    hilos[idx] = std::thread(calcular_local_histograma,
-                             std::ref(local_histograma[idx]), inicio, fin);
-  }
-
-  for(auto& hilo : hilos) {
-    hilo.join();
-  }
-
-  for(int idx = 0; idx < num_hilos; idx++) {
-    for(int idy = 0; idy < size; idy++) {
-      histograma[idy] += local_histograma[idx][idy];
+    for (int t = 0; t < num_threads; t++) {
+        int start = t * chunk;
+        int end = (t == num_threads - 1) ? size : (t + 1) * chunk;
+        threads.emplace_back(calcular_local_histograma, input, std::ref(local_histograms[t]), start, end);
     }
-  }
-  return histogram;
+
+    for (auto& thread : threads) thread.join();
+
+    for (const auto& local_histogram : local_histograms) {
+        for (int i = 0; i < buckets; i++) {
+            histogram[i] += local_histogram[i];
+        }
+    }
+
+    return histogram;
 }
+
