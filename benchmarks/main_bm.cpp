@@ -155,7 +155,7 @@ static void BM_openmp_reduction(benchmark::State& state) {
   }
 }
 
-static void BM_openmp_reduction(benchmark::State& state) {
+static void BM_openmp_reduction2(benchmark::State& state) {
     OpenMPReduction histogramCalculator;
 
     for (auto _ : state) {
@@ -265,6 +265,7 @@ BENCHMARK(BM_estandar_reduction2)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_atomic)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_atomic2)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_reduction)->UseRealTime()->Unit(benchmark::kMillisecond);
+BENCHMARK(BM_openmp_reduction2)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_lock_guard)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_lock_unlock)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_lock_unlock2)->UseRealTime()->Unit(benchmark::kMillisecond);
