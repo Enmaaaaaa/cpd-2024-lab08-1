@@ -87,7 +87,7 @@ TEST(OpenMPAtomicTest, pruebaOK) {
   auto histogramaAT2 = histogramCalculatorAT2.calculate(randomInput, MAXIMO_VALOR, NUMERO_ELEMENTOS);
 
   int acum = 0;
-  for(auto puntuacion : histogramaC) acum += puntuacion;
+  for(auto puntuacion : histogramaAT2) acum += puntuacion;
   EXPECT_EQ(acum, NUMERO_ELEMENTOS);
 }
 
