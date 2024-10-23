@@ -7,6 +7,7 @@
 #include "openmp_ompatomic.h"
 #include "estandar.h"
 #include "openmp_lock_unlock.h"
+#include "openmp_atomic.h"
 
 static int* randomInput = nullptr;
 static const int MAXIMO_VALOR = 5;
@@ -80,6 +81,16 @@ TEST(OpenMPLockUnlockTest, PruebaOK) {
   }
   EXPECT_EQ(acum, NUMERO_ELEMENTOS);  
 }
+
+TEST(OpenMPAtomicTest, pruebaOK) {
+  OpenMPAtomic histogramCalculatorAT2;
+  auto histogramaAT2 = histogramCalculatorAT2.calculate(randomInput, MAXIMO_VALOR, NUMERO_ELEMENTOS);
+
+  int acum = 0;
+  for(auto puntuacion : histogramaC) acum += puntuacion;
+  EXPECT_EQ(acum, NUMERO_ELEMENTOS);
+}
+
 
 int main(int argc, char** argv) {
   inicializa();
