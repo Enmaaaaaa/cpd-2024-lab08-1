@@ -6,6 +6,7 @@
 #include "openmp_critical.h"
 #include "openmp_ompatomic.h"
 #include "estandar.h"
+#include "openmp_lock_unlock.h"
 
 static int* randomInput = nullptr;
 static const int MAXIMO_VALOR = 5;
@@ -66,6 +67,17 @@ TEST(EstandarTest, pruebaOK) {
 
   int acum = 0;
   for(auto puntuacion : histograma) acum += puntuacion;
+  EXPECT_EQ(acum, NUMERO_ELEMENTOS);  
+}
+
+TEST(OpenMPLockUnlockTest, PruebaOK) {
+  OpenMPLockUnlock histogramCalculator;
+  auto histograma = histogramCalculator.calculate(randomInput, MAXIMO_VALOR, NUMERO_ELEMENTOS);
+
+  int acum = 0;
+  for(auto puntuacion : histograma) {
+    acum += puntuacion;
+  }
   EXPECT_EQ(acum, NUMERO_ELEMENTOS);  
 }
 
