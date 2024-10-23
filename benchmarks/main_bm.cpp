@@ -11,6 +11,7 @@
 #include "estandar.h"
 #include "openmp_lock_unlock.h"
 #include "openmp_atomic.h"
+#include "estandar_reduction.h"
 
 static int* randomInput = nullptr;
 static const int MAXIMO_VALOR = 5;
@@ -132,6 +133,14 @@ static void BM_estandar_reduction(benchmark::State& state) {
   for(auto _ : state) {
     histograma_estandar_reduction();
   }
+}
+
+static void BM_estandar_reduction2(benchmark::State& state) {
+    EstandarReduction histogramCalculator;
+
+    for (auto _ : state) {
+        auto histograma = histogramCalculator.calculate(randomInput, MAXIMO_VALOR, NUMERO_ELEMENTOS);
+    }
 }
 
 static void BM_openmp_reduction(benchmark::State& state) {
