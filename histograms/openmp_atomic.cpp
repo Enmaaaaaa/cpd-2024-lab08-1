@@ -1,5 +1,5 @@
 #include "openmp_atomic.h"
-#include "omp"
+#include <omp.h>
 
 std::vector<int> OpenMPAtomic::calculate(const int* input, const int buckets,
                                        const int input_size) {
