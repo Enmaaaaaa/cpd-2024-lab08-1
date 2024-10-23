@@ -10,5 +10,5 @@ std::vector<int> OpenMPAtomic::calculate(const int* input, const int buckets, co
     histogram[input[idx] - 1]++;
   }
   
-  return result;
+  return histogram;
 }
