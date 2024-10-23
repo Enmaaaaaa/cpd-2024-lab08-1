@@ -1,4 +1,5 @@
 #include "estandar_reduction.h"
+#include <thread>
 
 std::vector<int> EstandarReduction::calculate(const int* input, const int buckets, const int size) {
   std::vector<int> histogram(buckets, 0);
