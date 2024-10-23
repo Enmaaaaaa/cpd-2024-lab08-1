@@ -252,6 +252,7 @@ BENCHMARK(BM_secuencial2)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_estandar)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_estandar2)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_estandar_reduction)->UseRealTime()->Unit(benchmark::kMillisecond);
+BENCHMARK(BM_estandar_reduction2)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_atomic)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_atomic2)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_reduction)->UseRealTime()->Unit(benchmark::kMillisecond);
