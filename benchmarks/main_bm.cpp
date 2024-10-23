@@ -8,6 +8,7 @@
 #include "sequential.h"
 #include "openmp_critical.h"
 #include "openmp_ompatomic.h"
+#include "estandar.h"
 
 static int* randomInput = nullptr;
 static const int MAXIMO_VALOR = 5;
@@ -117,6 +118,14 @@ void histograma_estandar_reduction() {
   }
 }
 
+static void BM_estandar2(benchmark::State& state) {
+  Estandar estandar;
+  for (auto _ : state) {
+    estandar.calculate(randomInput, MAXIMO_VALOR, NUMERO_ELEMENTOS);
+  }
+}
+
+
 static void BM_estandar_reduction(benchmark::State& state) {
   for(auto _ : state) {
     histograma_estandar_reduction();
@@ -217,6 +226,7 @@ static void BM_openmp_ompatomic2(benchmark::State& state) {
 BENCHMARK(BM_secuencial)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_secuencial2)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_estandar)->UseRealTime()->Unit(benchmark::kMillisecond);
+BENCHMARK(BM_estandar2)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_estandar_reduction)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_atomic)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_reduction)->UseRealTime()->Unit(benchmark::kMillisecond);
