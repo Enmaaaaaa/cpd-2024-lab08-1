@@ -183,9 +183,9 @@ static void BM_openmp_lock_unlock(benchmark::State& state) {
 }
 
 static void BM_openmp_lock_unlock2(benchmark::State& state) {
-  OpenMPLockUnlock openmpLockUnlock;
+  OpenMPLockUnlock histogramCalculator;
   for (auto _ : state) {
-    openmpLockUnlock.calculate(randomInput, MAXIMO_VALOR, NUMERO_ELEMENTOS);
+    auto histograma = histogramCalculator.calculate(randomInput, MAXIMO_VALOR, NUMERO_ELEMENTOS);
   }
 }
 
