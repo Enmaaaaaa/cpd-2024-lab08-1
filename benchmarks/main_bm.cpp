@@ -157,10 +157,10 @@ static void BM_openmp_atomic(benchmark::State& state) {
 }
 
 static void BM_openmp_atomic2(benchmark::State& state) {
-    OpenMPAtomic histogramCalculator;
+    OpenMPAtomic histogramCalculatorAT2;
 
     for (auto _ : state) {
-        auto histograma = histogramCalculator.calculate(randomInput, MAXIMO_VALOR, NUMERO_ELEMENTOS);
+        auto histogramaAT2 = histogramCalculatorAT2.calculate(randomInput, MAXIMO_VALOR, NUMERO_ELEMENTOS);
     }
 }
 
