@@ -10,6 +10,7 @@
 #include "openmp_ompatomic.h"
 #include "estandar.h"
 #include "openmp_lock_unlock.h"
+#include "openmp_atomic.h"
 
 static int* randomInput = nullptr;
 static const int MAXIMO_VALOR = 5;
@@ -155,6 +156,14 @@ static void BM_openmp_atomic(benchmark::State& state) {
   }
 }
 
+static void BM_openmp_atomic2(benchmark::State& state) {
+    OpenMPAtomic histogramCalculator;
+
+    for (auto _ : state) {
+        auto histograma = histogramCalculator.calculate(randomInput, MAXIMO_VALOR, NUMERO_ELEMENTOS);
+    }
+}
+
 static void BM_openmp_lock_guard(benchmark::State& state) {
   int histograma[MAXIMO_VALOR] = {0};
   std::mutex mtx;
@@ -206,7 +215,6 @@ static void BM_openmp_critical2(benchmark::State& state) {
 
     for (auto _ : state) {
       auto histogramaC = histogramCalculatorC.calculate(randomInput, MAXIMO_VALOR, NUMERO_ELEMENTOS);
-      benchmark::DoNotOptimize(histogramaC);
     }
 }
 
@@ -227,7 +235,6 @@ static void BM_openmp_ompatomic2(benchmark::State& state) {
 
     for (auto _ : state) {
         auto histogramaAT = histogramCalculatorAT.calculate(randomInput, MAXIMO_VALOR, NUMERO_ELEMENTOS);
-        benchmark::DoNotOptimize(histogramaAT);
     }
 }
 
@@ -237,6 +244,7 @@ BENCHMARK(BM_estandar)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_estandar2)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_estandar_reduction)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_atomic)->UseRealTime()->Unit(benchmark::kMillisecond);
+BENCHMARK(BM_openmp_atomic2)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_reduction)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_lock_guard)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_lock_unlock)->UseRealTime()->Unit(benchmark::kMillisecond);
