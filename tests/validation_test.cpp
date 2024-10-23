@@ -8,6 +8,7 @@
 #include "estandar.h"
 #include "openmp_lock_unlock.h"
 #include "openmp_atomic.h"
+#include "estandar_reduction.h"
 
 static int* randomInput = nullptr;
 static const int MAXIMO_VALOR = 5;
@@ -91,6 +92,14 @@ TEST(OpenMPAtomicTest, pruebaOK) {
   EXPECT_EQ(acum, NUMERO_ELEMENTOS);
 }
 
+TEST(EstandarReductionTest, pruebaOK) {
+  EstandarReduction histogramCalculator;
+  auto histograma = histogramCalculator.calculate(randomInput, MAXIMO_VALOR, NUMERO_ELEMENTOS);
+
+  int acum = 0;
+  for(auto puntuacion : histograma) acum += puntuacion;
+  EXPECT_EQ(acum, NUMERO_ELEMENTOS);
+}
 
 int main(int argc, char** argv) {
   inicializa();
