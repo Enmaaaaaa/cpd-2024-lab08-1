@@ -13,6 +13,7 @@
 #include "openmp_atomic.h"
 #include "estandar_reduction.h"
 #include "openmp_reduction.h"
+#include "openmp_lock_guard.h"
 
 static int* randomInput = nullptr;
 static const int MAXIMO_VALOR = 5;
@@ -91,6 +92,13 @@ static void BM_estandar(benchmark::State& state) {
   }
 }
 
+static void BM_estandar2(benchmark::State& state) {
+  Estandar estandar;
+  for (auto _ : state) {
+    estandar.calculate(randomInput, MAXIMO_VALOR, NUMERO_ELEMENTOS);
+  }
+}
+
 void calcular_local_histograma(int* local_histograma, int inicio, int fin) {
   for(int idx = inicio; idx < fin; idx++) {
     local_histograma[randomInput[idx] - 1]++;
@@ -119,13 +127,6 @@ void histograma_estandar_reduction() {
     for(int idy = 0; idy < MAXIMO_VALOR; idy++) {
       histograma[idy] += local_histograma[idx][idy];
     }
-  }
-}
-
-static void BM_estandar2(benchmark::State& state) {
-  Estandar estandar;
-  for (auto _ : state) {
-    estandar.calculate(randomInput, MAXIMO_VALOR, NUMERO_ELEMENTOS);
   }
 }
 
@@ -193,6 +194,14 @@ static void BM_openmp_lock_guard(benchmark::State& state) {
       histograma[randomInput[idx] - 1]++;
     }
   }
+}
+
+static void BM_openmp_lock_guard(benchmark::State& state) {
+    OpenMPLockGuard histogramCalculator;
+
+    for (auto _ : state) {
+        auto histograma = histogramCalculator.calculate(randomInput, MAXIMO_VALOR, NUMERO_ELEMENTOS);
+    }
 }
 
 static void BM_openmp_lock_unlock(benchmark::State& state) {
@@ -267,6 +276,7 @@ BENCHMARK(BM_openmp_atomic2)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_reduction)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_reduction2)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_lock_guard)->UseRealTime()->Unit(benchmark::kMillisecond);
+BENCHMARK(BM_openmp_lock_guard2)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_lock_unlock)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_lock_unlock2)->UseRealTime()->Unit(benchmark::kMillisecond);
 BENCHMARK(BM_openmp_critical)->UseRealTime()->Unit(benchmark::kMillisecond);
