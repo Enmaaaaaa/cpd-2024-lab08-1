@@ -5,6 +5,7 @@
 #include "sequential.h"
 #include "openmp_critical.h"
 #include "openmp_ompatomic.h"
+#include "estandar.h"
 
 static int* randomInput = nullptr;
 static const int MAXIMO_VALOR = 5;
@@ -56,6 +57,16 @@ TEST(OpenMPOMPATOMICTest, pruebaOK) {
   int acum = 0;
   for(auto puntuacion : histogramaAT) acum += puntuacion;
   EXPECT_EQ(acum, NUMERO_ELEMENTOS);
+}
+
+TEST(EstandarTest, pruebaOK) {
+  Estandar histogramCalculator;
+  auto histograma = histogramCalculator.calculate(randomInput, MAXIMO_VALOR,
+                                                  NUMERO_ELEMENTOS);
+
+  int acum = 0;
+  for(auto puntuacion : histograma) acum += puntuacion;
+  EXPECT_EQ(acum, NUMERO_ELEMENTOS);  
 }
 
 int main(int argc, char** argv) {
