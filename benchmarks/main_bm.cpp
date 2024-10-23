@@ -196,7 +196,7 @@ static void BM_openmp_lock_guard(benchmark::State& state) {
   }
 }
 
-static void BM_openmp_lock_guard(benchmark::State& state) {
+static void BM_openmp_lock_guard2(benchmark::State& state) {
     OpenMPLockGuard histogramCalculator;
 
     for (auto _ : state) {
