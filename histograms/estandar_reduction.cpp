@@ -16,10 +16,10 @@ std::vector<int> EstandarReduction::calculate(const int* input, const int bucket
     std::vector<std::thread> threads(num_threads);
     int chunk = size / num_threads;
 
-    for (int t = 0; t < num_threads; t++) {
-        int start = t * chunk;
-        int end = (t == num_threads - 1) ? size : (t + 1) * chunk;
-        threads[t] = std::thread(calcular_local_histograma, input, std::ref(local_histograms[t]), start, end);
+    for (int idx = 0; idx < num_threads; idx++) {
+        int start = chunk * idx;
+        int end = (idx == num_threads - 1) ? size : (idx + 1) * chunk;
+        threads[idx] = std::thread(calcular_local_histograma, input, std::ref(local_histograms[idx]), start, end);
     }
 
     for (auto& thread : threads) {
@@ -34,3 +34,4 @@ std::vector<int> EstandarReduction::calculate(const int* input, const int bucket
 
     return histogram;
 }
+
